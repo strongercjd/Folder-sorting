@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="folder.ico" />
-    <Content Include="folder_128px_1219812_easyicon.net.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

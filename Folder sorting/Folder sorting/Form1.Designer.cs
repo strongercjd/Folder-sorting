@@ -59,6 +59,7 @@
             this.folder_listView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
+            this.folder_listView.FullRowSelect = true;
             this.folder_listView.HideSelection = false;
             this.folder_listView.Location = new System.Drawing.Point(12, 188);
             this.folder_listView.Name = "folder_listView";
@@ -66,6 +67,7 @@
             this.folder_listView.TabIndex = 1;
             this.folder_listView.UseCompatibleStateImageBehavior = false;
             this.folder_listView.View = System.Windows.Forms.View.Details;
+            this.folder_listView.Click += new System.EventHandler(this.folder_listView_Click);
             // 
             // columnHeader1
             // 

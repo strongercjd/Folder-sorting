@@ -81,6 +81,7 @@ namespace Folder_sorting
                     }
                 }
             }
+            MessageBox.Show("修改完毕", "提示");
         }
 
         private void Current_folder_Click(object sender, EventArgs e)
@@ -100,6 +101,12 @@ namespace Folder_sorting
 
                 this.folder_listView.Items.Add(lvi);
             }
+        }
+
+        private void folder_listView_Click(object sender, EventArgs e)
+        {
+            string sPID;
+            sPID = folder_listView.SelectedItems[0].SubItems[1].Text;//第2列
         }
     }
 }
