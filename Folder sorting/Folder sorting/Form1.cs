@@ -43,22 +43,83 @@ namespace Folder_sorting
             }
         }
 
-        private void Chen_modify_Click(object sender, EventArgs e)
+        private int DisplayLength(string str)
         {
-            string foldername;
-            int i = 1;
-            foreach (ListViewItem item in this.folder_listView.Items)
+            int lengthCount = 0;
+            var splits = str.ToCharArray();
+            for (int i = 0; i < splits.Length; i++)
             {
-                if (i < 10)
+                if (splits[i] == '\t')
                 {
-                    foldername = '0'+i.ToString();
+                    lengthCount += 8 - lengthCount % 8;
                 }
                 else
                 {
-                    foldername =  i.ToString();
+                    lengthCount += Encoding.GetEncoding("GBK").GetByteCount(splits[i].ToString());
                 }
-                item.SubItems[1].Text = foldername + item.SubItems[1].Text.Remove(0, 2);
-                i++;
+            }
+            return lengthCount;
+        }
+
+        private void Chen_modify_Click(object sender, EventArgs e)
+        {
+            string foldername;
+            string[] stringname = new string[100];
+            int num;
+            string str,str1;
+            num = 0;
+            foreach (ListViewItem item in this.folder_listView.Items)
+            {
+                stringname[num++] = item.SubItems[1].Text;
+            }
+            for (int i = 0; i < num-1; i++)
+            {
+                for (int j = 0; j < num - i - 1; j++)
+                {
+                    if (DisplayLength(stringname[j]) > DisplayLength(stringname[j+1]))
+                    {
+                        str = stringname[j];
+                        stringname[j] = stringname[j + 1];
+                        stringname[j + 1] = str;
+                    }
+                }
+            }
+
+            int q = 0;
+            foreach (ListViewItem item in this.folder_listView.Items)
+            {
+
+                for (q = 0; q < num; q++)
+                {
+                    if (item.SubItems[1].Text == stringname[q])
+                        break;
+                }
+
+                if (q < 10)
+                {
+                    foldername = '0'+q.ToString();
+                }
+                else
+                {
+                    foldername =  q.ToString();
+                }
+                if (item.SubItems[1].Text.Length > 2)
+                {
+                    str = item.SubItems[1].Text.Substring(2, 1);
+                    if (str != "-")
+                    {
+                        item.SubItems[1].Text = foldername + "-" + item.SubItems[1].Text;
+                    }
+                    else
+                    {
+                        item.SubItems[1].Text = foldername + item.SubItems[1].Text.Remove(0, 2);
+                    }
+                }
+                else
+                {
+                    item.SubItems[1].Text = foldername + "-" + item.SubItems[1].Text;
+                }
+                q++;
             }
         }
 
